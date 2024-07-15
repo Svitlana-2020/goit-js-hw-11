@@ -3,10 +3,6 @@ import iziToast from "izitoast";
 // Додатковий імпорт стилів
 import "izitoast/dist/css/iziToast.min.css";
 
-// Описаний у документації
-import SimpleLightbox from "simplelightbox";
-// Додатковий імпорт стилів
-import "simplelightbox/dist/simple-lightbox.min.css";
 import { getPictureByQuery } from "./js/pixabay-api";
 import { lightbox, renderGalleryMarkup } from "./js/render-functions";
 import { refs } from "./js/refs";
@@ -18,12 +14,11 @@ refs.formForm.addEventListener('submit', handleSearch);
                         e.preventDefault();
                         const form = e.currentTarget;
                         const queryValue = form.elements.inputf.value.trim();
-                        refs.loader.disabled = false;
                         refs.galleryCard.innerHTML = '';
+                        refs.loader.classList.remove('hidden');
                         if (queryValue === "") {
                             {
-                                refs.loader.disabled = true;
-                                iziToast.show({
+                        iziToast.show({
                                     message: '"Enter a search query in a search field. Pls try again"',
                                     messageColor: 'white',
                                     messageLineHeight: '150%',
@@ -33,23 +28,23 @@ refs.formForm.addEventListener('submit', handleSearch);
                                     }
                                     return;
                         }
-                                getPictureByQuery(queryValue)
+                                                        getPictureByQuery(queryValue)
                                     .then(({ hits }) => {
                                         if (hits && hits.length > 0) {
-                                        renderGalleryMarkup(hits);}
+                                                                   renderGalleryMarkup(hits);}
                                         else {
                                             return Promise.reject(new Error(''));
                                         }
-                                        refs.loader.disabled = true;
                                     })
                                     .catch(fetchError)
                         .finally(() => {
-        form.reset(); // скидання форми навіть у випадку помилки
+                            refs.loader.classList.add('hidden');
+                        form.reset(); 
     });
                     }
 
                     function fetchError(err) {
-                        refs.loader.disabled = true;
+                        // refs.loader.style.display = 'none';
                         iziToast.show({
                             message: '"Sorry, there are no images matching your search query. Please try again!"',
                             messageColor: 'white',
@@ -59,6 +54,6 @@ refs.formForm.addEventListener('submit', handleSearch);
                                     })
                             }
 
-lightbox.on('show.simplelightbox', function () {
-        });
+// lightbox.on('show.simplelightbox', function () {
+//         });
 

@@ -1,3 +1,8 @@
+// // Описаний у документації
+// import iziToast from "izitoast";
+// // Додатковий імпорт стилів
+// import "izitoast/dist/css/iziToast.min.css";
+
 // Описаний у документації
 import SimpleLightbox from "simplelightbox";
 // Додатковий імпорт стилів
@@ -7,7 +12,7 @@ import { refs } from "./refs";
 export const lightbox = new SimpleLightbox('.gallery-item a', {
     captionsData: 'alt',
     captionPosition: 'bottom',
-    spinner: true,
+    spinner: false,
   });
 
 export function renderGalleryMarkup(array) {
@@ -45,5 +50,7 @@ export function renderGalleryMarkup(array) {
     </li>
     `  ).join('');
     refs.galleryCard.insertAdjacentHTML('beforeend', markUp);
+    lightbox.on('show.simplelightbox', function () {
+    });
     lightbox.refresh();
     }
