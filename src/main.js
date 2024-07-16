@@ -18,6 +18,8 @@ refs.formForm.addEventListener('submit', handleSearch);
                         refs.loader.classList.remove('hidden');
                         if (queryValue === "") {
                             {
+                                refs.loader.classList.add('hidden');
+                                form.reset();
                         iziToast.show({
                                     message: '"Enter a search query in a search field. Pls try again"',
                                     messageColor: 'white',
